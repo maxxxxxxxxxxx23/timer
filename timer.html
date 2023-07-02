@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Crossy Road timer for speedrun.com</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+        }
+        
+        h1 {
+            font-size: 28px;
+            margin-bottom: 20px;
+        }
+        
+        #timer {
+            font-size: 48px;
+            margin-bottom: 20px;
+        }
+        
+        #multiplied-value {
+            font-size: 72px;
+            text-align: center;
+        }
+        
+        .btn {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin: 10px 5px;
+            cursor: pointer;
+            border-radius: 4px;
+        }
+        
+        .btn:hover {
+            background-color: #45a049;
+        }
+    </style>
+    <script>
+        var seconds = 0;
+        var timer;
+        
+        function startTimer() {
+            timer = setInterval(incrementTimer, 1000);
+        }
+        
+        function stopTimer() {
+            clearInterval(timer);
+        }
+        
+        function resetTimer() {
+            clearInterval(timer);
+            seconds = 0;
+            document.getElementById("timer").innerHTML = "0:00";
+            document.getElementById("multiplied-value").innerHTML = "0";
+        }
+        
+        function incrementTimer() {
+            seconds++;
+            var minutes = Math.floor(seconds / 60);
+            var remainderSeconds = seconds % 60;
+            var multipliedValue = Math.round(seconds * 4.06504); //4.07504 is the pace of hops per second. Divide the record by the amount of hops needed. Example 500 hops record is 123 seconds 500/123=3.06504.
+            
+            document.getElementById("timer").innerHTML = minutes + ":" + padZero(remainderSeconds);
+            document.getElementById("multiplied-value").innerHTML = multipliedValue;
+        }
+        
+        function padZero(value) {
+            return value < 10 ? "0" + value : value;
+        }
+    </script>
+</head>
+<body>
+    <h1>made by smashskitten</h1>
+    <div>Time: <span id="timer">0:00</span></div>
+    <div><span id="multiplied-value">0</span></div>
+    <button class="btn" onclick="startTimer()">Start</button>
+    <button class="btn" onclick="stopTimer()">Stop</button>
+    <button class="btn" onclick="resetTimer()">Reset</button>
+</body>
+</html>
